@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tabbar/provider.dart';
 import 'package:tabbar/riverpod_switch.dart';
 import 'animated_switch.dart';
 
