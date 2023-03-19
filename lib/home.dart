@@ -23,7 +23,9 @@ class _HomePageState extends ConsumerState<HomePage>
             AnimatedSwitch(
               onTap: (bool value) {},
             ),
-            RiverPodSwitch()
+            RiverPodSwitch(
+              onTap: (bool value) {},
+            )
           ],
         ),
       ),

@@ -4,9 +4,12 @@ import 'package:tabbar/provider.dart';
 
 class RiverPodSwitch extends ConsumerStatefulWidget {
   final double size;
+  final Function(bool) onTap;
+
   const RiverPodSwitch({
     super.key,
     this.size = 50,
+    required this.onTap,
   });
 
   @override
@@ -20,6 +23,7 @@ class _RiverPodSwitchState extends ConsumerState<RiverPodSwitch> {
     return GestureDetector(
       onTap: () {
         ref.read(switchProvider.notifier).toogle(!isOn);
+        widget.onTap(!isOn);
       },
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 100),
