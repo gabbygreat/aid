@@ -1,28 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tabbar/provider.dart';
 
-class AnimatedSwitch extends StatefulWidget {
+class RiverPodSwitch extends ConsumerStatefulWidget {
   final double size;
-  final Function(bool) onTap;
-  const AnimatedSwitch({
+  const RiverPodSwitch({
     super.key,
     this.size = 50,
-    required this.onTap,
   });
 
   @override
-  State<AnimatedSwitch> createState() => _AnimatedSwitchState();
+  ConsumerState<RiverPodSwitch> createState() => _RiverPodSwitchState();
 }
 
-class _AnimatedSwitchState extends State<AnimatedSwitch> {
-  bool isOn = false;
-
+class _RiverPodSwitchState extends ConsumerState<RiverPodSwitch> {
   @override
   Widget build(BuildContext context) {
+    final isOn = ref.watch(switchProvider);
     return GestureDetector(
-      onTap: () => setState(() {
-        isOn = !isOn;
-        widget.onTap(isOn);
-      }),
+      onTap: () {
+        ref.read(switchProvider.notifier).toogle(!isOn);
+      },
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 100),
         height: widget.size,
