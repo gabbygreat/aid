@@ -1,33 +1,123 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tabbar/riverpod_switch.dart';
-import 'animated_switch.dart';
+import 'dart:math' as math;
 
-class HomePage extends ConsumerStatefulWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
-  ConsumerState<HomePage> createState() => _HomePageState();
+  State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends ConsumerState<HomePage>
-    with SingleTickerProviderStateMixin {
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            AnimatedSwitch(
-              onTap: (bool value) {},
-            ),
-            RiverPodSwitch(
-              onTap: (bool value) {},
-            )
-          ],
+    return Container(
+      color: Colors.white,
+      child: Center(
+        child: Container(
+          height: 150,
+          width: MediaQuery.of(context).size.width * 0.85,
+          color: Colors.blueGrey,
+          child: Stack(
+            children: [
+              Align(
+                alignment: Alignment.topRight,
+                child: Transform.rotate(
+                  angle: 0,
+                  child: SizedBox(
+                    height: 90,
+                    width: 130,
+                    child: CustomPaint(
+                      painter: TrianglePainter(),
+                      foregroundPainter: TrianglePainter(
+                        strokeColor: Colors.red,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Align(
+                alignment: Alignment.bottomRight,
+                child: Container(
+                  height: 90,
+                  width: 180,
+                  margin: const EdgeInsets.only(right: 8),
+                  child: CustomPaint(
+                    painter: TrianglePainter2(),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
+}
+
+class TrianglePainter extends CustomPainter {
+  final Color strokeColor;
+  final PaintingStyle paintingStyle;
+  final double strokeWidth;
+
+  TrianglePainter({
+    this.strokeColor = Colors.black,
+    this.strokeWidth = 3,
+    this.paintingStyle = PaintingStyle.fill,
+  });
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    Paint paint = Paint()
+      ..color = strokeColor
+      ..strokeWidth = strokeWidth
+      ..style = paintingStyle;
+
+    canvas.drawPath(getTrianglePath(size.width, size.height), paint);
+  }
+
+  Path getTrianglePath(double x, double y) {
+    return Path()
+      // ..moveTo(0, y)
+      ..lineTo(x / 1.5, y)
+      ..lineTo(x, y / 1.5)
+      ..lineTo(x, 0)
+      ..close();
+  }
+
+  @override
+  bool shouldRepaint(TrianglePainter oldDelegate) => false;
+}
+
+class TrianglePainter2 extends CustomPainter {
+  final Color strokeColor;
+  final PaintingStyle paintingStyle;
+  final double strokeWidth;
+
+  TrianglePainter2({
+    this.strokeColor = Colors.black,
+    this.strokeWidth = 3,
+    this.paintingStyle = PaintingStyle.fill,
+  });
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    Paint paint = Paint()
+      ..color = strokeColor
+      ..strokeWidth = strokeWidth
+      ..style = paintingStyle;
+
+    canvas.drawPath(getTrianglePath(size.width, size.height), paint);
+  }
+
+  Path getTrianglePath(double x, double y) {
+    return Path()
+      ..moveTo(0, y)
+      ..lineTo(x / 2, 0)
+      ..lineTo(x, y)
+      ..lineTo(0, y);
+  }
+
+  @override
+  bool shouldRepaint(TrianglePainter2 oldDelegate) => false;
 }

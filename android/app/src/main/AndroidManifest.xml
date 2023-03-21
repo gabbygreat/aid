@@ -1,5 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.tabbar">
+    <uses-permission android:name="android.permission.REQUEST_LEGACY_EXTERNAL_STORAGE"/>
+
    <application
         android:label="tabbar"
         android:name="${applicationName}"
