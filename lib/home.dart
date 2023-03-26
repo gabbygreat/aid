@@ -21,30 +21,20 @@ class _HomePageState extends State<HomePage> {
             color: Colors.blueGrey,
             child: Stack(
               children: [
-                Align(
-                  alignment: Alignment.topRight,
-                  child: Transform.rotate(
-                    angle: 0,
-                    child: SizedBox(
-                      height: 90,
-                      width: 130,
-                      child: CustomPaint(
-                        painter: TrianglePainter(),
-                        foregroundPainter: TrianglePainter(
-                          strokeColor: Colors.red,
-                        ),
-                      ),
+                Positioned.fill(
+                  child: SizedBox(
+                    // width: MediaQuery.of(context).size.width * 0.85,
+                    child: CustomPaint(
+                      painter: CirclePainter(),
                     ),
                   ),
                 ),
                 Align(
                   alignment: Alignment.bottomRight,
-                  child: Container(
-                    height: 90,
-                    width: 180,
-                    margin: const EdgeInsets.only(right: 8),
+                  child: SizedBox(
+                    // width: MediaQuery.of(context).size.width * 0.85,
                     child: CustomPaint(
-                      painter: TrianglePainter2(),
+                      painter: CirclePainter2(),
                     ),
                   ),
                 ),
@@ -57,69 +47,42 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-class TrianglePainter extends CustomPainter {
-  final Color strokeColor;
-  final PaintingStyle paintingStyle;
-  final double strokeWidth;
-
-  TrianglePainter({
-    this.strokeColor = Colors.black,
-    this.strokeWidth = 3,
-    this.paintingStyle = PaintingStyle.fill,
-  });
-
+class CirclePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    Paint paint = Paint()
-      ..color = strokeColor
-      ..strokeWidth = strokeWidth
-      ..style = paintingStyle;
+    var paint = Paint()
+      ..style = PaintingStyle.fill
+      ..color = Colors.blue;
 
-    canvas.drawPath(getTrianglePath(size.width, size.height), paint);
-  }
-
-  Path getTrianglePath(double x, double y) {
-    return Path()
-      // ..moveTo(0, y)
-      ..lineTo(x / 1.5, y)
-      ..lineTo(x, y / 1.5)
-      ..lineTo(x, 0)
-      ..close();
+    canvas.drawArc(
+      Rect.fromCenter(center: Offset.zero, width: 350, height: 350),
+      0.0,
+      500,
+      true,
+      paint,
+    );
   }
 
   @override
-  bool shouldRepaint(TrianglePainter oldDelegate) => false;
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
 
-class TrianglePainter2 extends CustomPainter {
-  final Color strokeColor;
-  final PaintingStyle paintingStyle;
-  final double strokeWidth;
-
-  TrianglePainter2({
-    this.strokeColor = Colors.black,
-    this.strokeWidth = 3,
-    this.paintingStyle = PaintingStyle.fill,
-  });
-
+class CirclePainter2 extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    Paint paint = Paint()
-      ..color = strokeColor
-      ..strokeWidth = strokeWidth
-      ..style = paintingStyle;
+    var paint = Paint()
+      ..style = PaintingStyle.fill
+      ..color = Colors.blue;
 
-    canvas.drawPath(getTrianglePath(size.width, size.height), paint);
-  }
-
-  Path getTrianglePath(double x, double y) {
-    return Path()
-      ..moveTo(0, y)
-      ..lineTo(x / 2, 0)
-      ..lineTo(x, y)
-      ..lineTo(0, y);
+    canvas.drawArc(
+      Rect.fromCenter(center: const Offset(0,20), width: 300, height: 180),
+      0.0,
+      5,
+      false,
+      paint,
+    );
   }
 
   @override
-  bool shouldRepaint(TrianglePainter2 oldDelegate) => false;
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
