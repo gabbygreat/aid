@@ -67,15 +67,24 @@ class CommentPaint extends CustomPainter {
       ..color = Colors.blue;
 
     var path2 = Path();
+    const offset = 20.0;
+    const cutoff = 30.0;
 
-    path2.lineTo(0, size.height - 30);
-    path2.lineTo(40, size.height - 30);
-    path2.moveTo(40, size.height - 30);
+    path2.moveTo(0, offset);
+    path2.lineTo(0, size.height - cutoff - offset);
+    path2.quadraticBezierTo(
+        0, size.height - cutoff, offset, size.height - cutoff);
+    path2.lineTo(40, size.height - cutoff);
+    path2.moveTo(40, size.height - cutoff);
     path2.lineTo(40, size.height);
-    path2.lineTo(120, size.height - 30);
-    path2.lineTo(size.width, size.height - 30);
-    path2.lineTo(size.width, 0);
-    path2.lineTo(0, 0);
+    path2.lineTo(120, size.height - cutoff);
+    path2.lineTo(size.width - offset, size.height - cutoff);
+    path2.quadraticBezierTo(size.width, size.height - cutoff, size.width,
+        size.height - cutoff - offset);
+    path2.lineTo(size.width, offset);
+    path2.quadraticBezierTo(size.width, 0, size.width - offset, 0);
+    path2.lineTo(offset, 0);
+    path2.quadraticBezierTo(0, 0, 0, offset);
 
     canvas.drawPath(path2, paint);
   }
