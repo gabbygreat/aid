@@ -10,34 +10,46 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white,
-      child: Center(
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(10),
-          child: Container(
-            height: 150,
+    return Scaffold(
+      body: Container(
+        color: Colors.white,
+        child: Center(
+          child: SizedBox(
+            height: 180,
             width: MediaQuery.of(context).size.width * 0.85,
-            color: Colors.blueGrey,
             child: Stack(
               children: [
                 Positioned.fill(
                   child: SizedBox(
-                    // width: MediaQuery.of(context).size.width * 0.85,
                     child: CustomPaint(
-                      painter: CirclePainter(),
+                      painter: CommentPaint(),
                     ),
                   ),
                 ),
-                Align(
-                  alignment: Alignment.bottomRight,
-                  child: SizedBox(
-                    // width: MediaQuery.of(context).size.width * 0.85,
-                    child: CustomPaint(
-                      painter: CirclePainter2(),
-                    ),
+                Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: const [
+                      Text(
+                        'Value  for money',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        '-Arun & 25 others',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 15,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
                   ),
-                ),
+                )
               ],
             ),
           ),
@@ -47,40 +59,25 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-class CirclePainter extends CustomPainter {
+class CommentPaint extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     var paint = Paint()
       ..style = PaintingStyle.fill
       ..color = Colors.blue;
 
-    canvas.drawArc(
-      Rect.fromCenter(center: Offset.zero, width: 350, height: 350),
-      0.0,
-      500,
-      true,
-      paint,
-    );
-  }
+    var path2 = Path();
 
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
-}
+    path2.lineTo(0, size.height - 30);
+    path2.lineTo(40, size.height - 30);
+    path2.moveTo(40, size.height - 30);
+    path2.lineTo(40, size.height);
+    path2.lineTo(120, size.height - 30);
+    path2.lineTo(size.width, size.height - 30);
+    path2.lineTo(size.width, 0);
+    path2.lineTo(0, 0);
 
-class CirclePainter2 extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    var paint = Paint()
-      ..style = PaintingStyle.fill
-      ..color = Colors.blue;
-
-    canvas.drawArc(
-      Rect.fromCenter(center: const Offset(0,20), width: 300, height: 180),
-      0.0,
-      5,
-      false,
-      paint,
-    );
+    canvas.drawPath(path2, paint);
   }
 
   @override
