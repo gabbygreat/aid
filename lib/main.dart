@@ -31,6 +31,8 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height * 0.7;
+    final width = MediaQuery.of(context).size.width * 0.9;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -40,34 +42,27 @@ class _HomeState extends State<Home> {
       body: Center(
         child: Container(
           height: height,
-          alignment: Alignment.center,
+          width: width,
+          // color: Colors.red,
           child: Stack(
             children: [
               Align(
                 alignment: Alignment.topCenter,
-                child: Opacity(
-                  opacity: 0.3,
-                  child: ClipPath(
-                    clipper: TopClipper(),
-                    child: Container(
-                      height: height * 0.8,
-                      width: MediaQuery.of(context).size.width * 0.8,
-                      color: Colors.white,
-                    ),
+                child: ClipPath(
+                  clipper: TopClipper(),
+                  child: Container(
+                    color: Colors.black,
+                    height: 0.8 * height,
                   ),
                 ),
               ),
               Align(
                 alignment: Alignment.bottomCenter,
-                child: Opacity(
-                  opacity: 0.3,
-                  child: ClipPath(
-                    clipper: BottomClipper(),
-                    child: Container(
-                      height: height * 0.4,
-                      width: MediaQuery.of(context).size.width * 0.8,
-                      color: Colors.white,
-                    ),
+                child: ClipPath(
+                  clipper: BottomClipper(),
+                  child: Container(
+                    color: Colors.red,
+                    height: 0.4 * height,
                   ),
                 ),
               ),
